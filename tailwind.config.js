@@ -12,7 +12,16 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      ringColor: {
+        DEFAULT: 'rgba(239, 68, 68)', // red-600 with 50% opacity
+      },
+      gridTemplateColumns: {
+        'gallery' : 'repeat(auto-fit, minmax(250px, 1fr))',
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@headlessui/tailwindcss'),
+  ],
 }

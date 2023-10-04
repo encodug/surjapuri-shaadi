@@ -1,113 +1,89 @@
-import Image from 'next/image'
+'use client'
+import { useEffect, useState } from "react";
+import withAuth from "./(auth)/withAuth";
+import { useRouter } from "next/navigation";
+import { useAuth } from "./(auth)/useAuth";
+import Image from "next/image";
+import { Form, Formik } from "formik";
+import TextInput from "./components/forms/text-input";
+import { fetchGetParamRequest } from "./lib/utils";
+import Profiles from "./components/profile";
+import LoadMore from "./components/profile/loadMore";
+import Spinner from "./components/ui/spinner";
+import { SelectField } from "./components/forms";
 
-export default function Home() {
+function Home() {
+  const [loading, setLoading] = useState(true);
+  const [quickSearchData, setQuickSearchData] = useState(null);
+  const router = useRouter();
+  const { user } = useAuth();
+
+  const defaultSearch = async () => {
+    const searchObject = { page: 1, gender: (user.gender === 'Male') ? 'Female' : 'Male' }
+    const {success, data } = await fetchGetParamRequest('/api/search/quick/', JSON.stringify(searchObject));
+    if(success) {
+      setQuickSearchData(data.profiles);
+    }
+  }
+
+  useEffect(() => {
+    const {  profile_completed } = user;
+
+    if(profile_completed === 0) {
+      router.push('/profile/edit');
+    } else {
+       defaultSearch();
+    }
+    setLoading(false);
+  }, [user]);
+  
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <section>
+      {!loading &&
+        <main>
+          <div className="w-full h-96 -z-10 relative">
+              <Image src="/images/search-banner.png" fill quality={100} className="object-cover lg:object-fill object-center" alt="Happy Couple, Finds your today"/>
+          </div>
+          <div className="px-6 md:px-8 container mx-auto -mt-12 z-10">
+            <div className="bg-gradient-to-b md:bg-gradient-to-r from-red-500 to-gray-800 rounded-lg w-full p-6">
+                <Formik 
+                  initialValues={{fromAge: '', toAge: '', religion: '', motherTongue: ''}}
+                  onSubmit={(values) => {
+                    router.push(`/search?${Object.entries(values).map(([key, value]) => `${key}=${value}`).join('&')}`);
+                  }}
+                >
+                  {({isSubmitting, setSubmitting}) => (
+                    <Form className="grid grid-cols-2 md:grid-cols-5 gap-x-4 place-items-center">
+                      <TextInput label="From Age" name="fromAge" darkMode className="w-full"/>
+                      <TextInput label="To Age" name="toAge" darkMode className="w-full"/>
+                      <SelectField label="Religion" name="religion" options={['Islam', 'Hindu', 'Catholic']} darkMode className="w-full"/>
+                      <SelectField label="Mother Tounge" name="motherTongue" options={['Surjapuri', 'Bengali', 'Hindi', 'English', 'Bihari']} darkMode className="w-full"/>
+                      <button type="submit" className="bg-red-600 hover:bg-red-500 p-2 rounded-lg text-white font-semibold col-span-2 md:col-span-1 w-full mt-4 flex justify-center items-center" onClick={() => setSubmitting(true)}>
+                        {isSubmitting && 
+                          <Spinner className="w-4 h-4"/>
+                        }
+                        Let's Begin
+                      </button>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+          </div>
+          <div className="container mx-auto p-6 md:py-8">
+              <div className="text-center mb-10 mt-4">
+                <p>Our Members</p>
+                <h3 className="font-bold text-4xl my-2">Start Looking For Your Partner</h3>
+                <p>The beginning of a beautiful relationship is here. Why not start looking for your ideal partner online right away?</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                  <Profiles profiles={quickSearchData}/>
+                  <LoadMore searchCriteria={{gender: (user.gender === 'Male') ? 'Female' : 'Male'}}/>
+              </div>
+          </div>
+        </main>
+      }
+    </section>
   )
 }
+
+export default withAuth(Home);
