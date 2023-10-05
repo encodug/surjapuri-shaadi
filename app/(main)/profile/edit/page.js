@@ -211,7 +211,7 @@ function ProfileUpdation() {
                       </Disclosure.Panel>
                 </Disclosure>
                 
-                <button type="submit" className="mt-4 flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" onClick={() => setSubmitting(true)}  disabled={isSubmitting}>
+                <button type="submit" className="mt-4 flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"  disabled={isSubmitting}>
                   {isSubmitting &&
                       <Spinner className="w-4 h-4" />
                   }

@@ -58,7 +58,7 @@ function Home() {
                       <TextInput label="To Age" name="toAge" darkMode className="w-full"/>
                       <SelectField label="Religion" name="religion" options={['Islam', 'Hindu', 'Catholic']} darkMode className="w-full"/>
                       <SelectField label="Mother Tounge" name="motherTongue" options={['Surjapuri', 'Bengali', 'Hindi', 'English', 'Bihari']} darkMode className="w-full"/>
-                      <button type="submit" className="bg-red-600 hover:bg-red-500 p-2 rounded-lg text-white font-semibold col-span-2 md:col-span-1 w-full mt-4 flex justify-center items-center" onClick={() => setSubmitting(true)}>
+                      <button type="submit" className="bg-red-600 hover:bg-red-500 p-2 rounded-lg text-white font-semibold col-span-2 md:col-span-1 w-full mt-4 flex justify-center items-center">
                         {isSubmitting && 
                           <Spinner className="w-4 h-4"/>
                         }

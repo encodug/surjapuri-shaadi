@@ -169,7 +169,7 @@ export default function Page() {
                         <TextInput type="date" name="DOB" label="Date of Birth" max={values.gender === 'Male' ? new Date(new Date().setFullYear(new Date().getFullYear() - 21 )).toLocaleDateString('en-CA') : new Date(new Date().setFullYear(new Date().getFullYear() - 18 )).toLocaleDateString('en-CA')} />
                       </div>
 
-                      <button type="submit" className='bg-red-600 rounded-md text-slate-100 font-semibold p-2 mt-2 transition ease-in-out delay-150 duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:bg-red-500' disabled={ isSubmitting } onClick={()=> setSubmitting(true)}>
+                      <button type="submit" className='bg-red-600 rounded-md text-slate-100 font-semibold p-2 mt-2 transition ease-in-out delay-150 duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:bg-red-500' disabled={ isSubmitting }>
                         {isSubmitting &&
                             <Spinner className="w-4 h-4" />
                         }

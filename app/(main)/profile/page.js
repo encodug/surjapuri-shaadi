@@ -86,7 +86,7 @@ function Profile() {
                       <SelectField name="religion" label="Religion" options={['Islam', 'Hindu', 'Catholic']} darkMode/>
                       <SelectField name="motherTongue" label="Mother Tongue" options={['Surjapuri', 'Bengali', 'Hindi', 'English', 'Bihari']} darkMode/>
                     </div>
-                    <button type="submit" onClick={()=> setSubmitting(true)} className='bg-red-600 hover:red-500 p-2 rounded-lg text-white font-bold w-full my-2'>
+                    <button type="submit" className='bg-red-600 hover:red-500 p-2 rounded-lg text-white font-bold w-full my-2'>
                       {isSubmitting && 
                         <Spinner className="w-4 h-4"/>
                       }

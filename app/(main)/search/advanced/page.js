@@ -113,7 +113,7 @@ function AdvancedSearch() {
                                         <SelectField name="annualIncome" label="Annual Income" options={['1,00,000 - 2,00,000', '2,00,000 - 5,00,000', '5,00,000 - 10,00,000', '10,00,000 - 15,00,000', '15,00,000 - 20,00,000', 'Above 20,00,000' ]}/>
                                     </div>
 
-                                    <button type="submit" onClick={()=> { setSubmitting(true); setLoading(true);}} className="flex bg-red-600 rounded-md text-slate-100 font-semibold p-2 mt-2 md:col-span-2 lg:col-span-4">
+                                    <button type="submit" className="flex bg-red-600 rounded-md text-slate-100 font-semibold p-2 mt-2 md:col-span-2 lg:col-span-4">
                                         {isSubmitting &&
                                             <Spinner className="w-4 h-4" />
                                         }

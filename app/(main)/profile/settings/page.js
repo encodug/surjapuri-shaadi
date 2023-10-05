@@ -44,7 +44,7 @@ function Settings() {
               {({values, isSubmitting, setSubmitting}) => (
                 <Form>
                   <SelectField name="photoPrivacy" options={['Everyone', 'Accepted Connections', 'Accepted & Invited']} label="Current Status"/>
-                  <button type="submit"  className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:shadow-lg hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mt-4" disabled={ isSubmitting } onClick={()=> setSubmitting(true)}>
+                  <button type="submit"  className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:shadow-lg hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mt-4" disabled={ isSubmitting }>
                     {isSubmitting &&
                         <Spinner className="w-4 h-4" />
                     }
@@ -95,7 +95,7 @@ function Settings() {
                     <TextInput type="password" label="Current Password" name="currentPassword"/>
                     <TextInput type="password" label="New Password" name="newPassword" />
                     <TextInput type="password" label="Confirm New Password" name="confrimNewPassword" />
-                    <button type="submit"  className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:shadow-lg hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mt-4" disabled={ isSubmitting } onClick={()=> setSubmitting(true)}>
+                    <button type="submit"  className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:shadow-lg hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mt-4" disabled={ isSubmitting }>
                     {isSubmitting &&
                         <Spinner className="w-4 h-4" />
                     }

@@ -51,7 +51,7 @@ function FileDialog({uid, className, label, disabled=false}) {
                         }
                       </div>
                       <input type="file" accept='image/*' className='hidden' name='file'/>
-                      <button type="submit"  className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" disabled={ isSubmitting } onClick={()=> setSubmitting(true)}>
+                      <button type="submit"  className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" disabled={ isSubmitting }>
                           {isSubmitting &&
                               <Spinner className="w-4 h-4" />
                           }

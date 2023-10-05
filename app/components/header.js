@@ -23,13 +23,15 @@ function Header() {
                 </Link>
                 </div>
                 <div id="Navigation" className='flex flex-row items-center justify-center content-center'>
+                    {user && 
+                    <>
                     <div className="flex lg:hidden">
                         <button className="inline-flex items-center justify-center rounded-md text-gray-700 relative" onClick={() => setMobileOpenMenu(true)}>
                             <div className="sr-only">Open Main Menu</div>
                             <Bars3BottomLeftIcon className="w-6 h-6"/>
                         </button>
                     </div>
-                    {user && 
+                    
                     <div className={`${mobileOpenMenu ? "fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto bg-gray-900 w-64" : "hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-5"}`} tabIndex="-1" aria-labelledby='drawer'>
                         <button type="button" onClick={()=> setMobileOpenMenu(false)} className={`text-white float-right lg:hidden`}>
                             <div className="sr-only">Close Main Menu</div>
@@ -78,6 +80,7 @@ function Header() {
                             </div>
                         
                        </div>
+                    </>
                     }
                     {user === null ? (
                         <Link href="/signIn">
