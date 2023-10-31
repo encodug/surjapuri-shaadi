@@ -4,7 +4,7 @@ import withAuth from "@/app/(auth)/withAuth"
 import {AutoComplete, DependentSelectField, FileInput, OtherSelectField, SelectField, TextArea, TextInput} from "@/app/components/forms";
 import Spinner from "@/app/components/ui/spinner";
 import { degrees, indianDistricts, indianStates, professions } from "@/app/lib/dataUtils";
-import { sendPostFormBodyRequest } from "@/app/lib/utils";
+import { sendPostFormBodyRequest, sendPostRequest } from "@/app/lib/utils";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { Form, Formik } from "formik";
@@ -55,7 +55,7 @@ function ProfileUpdation() {
     religion: user.userProfile?.religion || '',
     caste: user.userProfile?.caste || '',
     marryOtherCaste: user.userProfile?.marryOtherCaste || 'No',
-    spritiual: user.userProfile?.spritiual || '',
+    spiritual: user.userProfile?.spiritual || '',
     maritalStatus: user.userProfile?.maritalStatus || '',
     noOfChildren: user.userProfile?.noOfChildren || '',
     hobbies: user.userProfile?.hobbies?.map(language => ({
@@ -88,16 +88,30 @@ function ProfileUpdation() {
           enableReinitialize
           validateOnBlur
           onSubmit={async (values, { setSubmitting }) => {
+            
             values.otherLanguages = JSON.stringify(values.otherLanguages.map(hobby => hobby.value));
             values.hobbies = JSON.stringify(values.hobbies.map(hobby => hobby.value));
-            try{
-              const { success, data } = await sendPostFormBodyRequest(`/api/user/profile/update/${user.uid}`, values);
-              if(success) {
-                getUserData(user.uid, dispatch);
-                router.push('/profile');
+
+            if(values.photoUrl  && typeof values.photoUrl !== 'string') {
+              try{
+                const { success } = await sendPostFormBodyRequest(`/api/user/profile/update/withPhoto/${user.uid}`, values);
+                if(success) {
+                  getUserData(user.uid, dispatch);
+                  router.push('/profile');
+                }
+              } catch (error) {
+                console.error("something went wrong, check your console.");
               }
-            } catch (error) {
-              console.error("something went wrong, check your console.");
+            } else {
+              try{
+                const { success } = await sendPostRequest(`/api/user/profile/update/${user.uid}`, values);
+                if(success) {
+                  getUserData(user.uid, dispatch);
+                  router.push('/profile');
+                }
+              } catch (error) {
+                console.error("something went wrong, check your console.");
+              }
             }
 
             setSubmitting(false);
@@ -160,7 +174,7 @@ function ProfileUpdation() {
                       <Disclosure.Panel className="p-4 grid grid-cols-1 md:grid-cols-2 gap-x-3">
                           <SelectField name="religion" label="Religion" options={['Prefer Not to Say','Islam', 'Hindu', 'Christian']} />
                           <DependentSelectField name="caste" label="Caste" dependency="religion" data={{'Prefer Not to Say': [], 'Islam': ['Barelvi', 'Deobandi', 'Ahl-e-Hadees'], 'Hindu': [], 'Christian': ['Catholic', 'Protestant']}} />
-                          <SelectField name="spritiual" label="Spiritual Background" className="flex-1" options={['Prefer Not to Say', 'Religious', 'Atheist', 'Spiritual']} />
+                          <SelectField name="spiritual" label="Spiritual Background" className="flex-1" options={['Prefer Not to Say', 'Religious', 'Atheist', 'Spiritual']} />
                           <SelectField name="marryOtherCaste" label="Will to marry in other caste?" options={['Yes', 'No']}/>
                       </Disclosure.Panel>
                 </Disclosure>  
@@ -172,7 +186,7 @@ function ProfileUpdation() {
                         <ChevronUpIcon className="ui-open:rotate-180 ui-open:transform h-5 w-5 text-red-600"/>
                       </Disclosure.Button>
                       <Disclosure.Panel className="p-4 grid grid-cols-1 md:grid-cols-2 gap-x-3">
-                          <AutoComplete name="hobbies" label="Hobbies" options={['Reading', 'Travelling']}/>
+                          <AutoComplete name="hobbies" label="Hobbies" options={["Reading", "Cooking", "Gardening", "Hiking", "Painting", "Photography", "Traveling", "Swimming", "Cycling", "Dancing", "Playing musical instruments", "Watching movies", "Playing video games", "Singing", "Fishing", "Yoga", "Knitting", "Running", "Bird watching", "Collecting stamps", "Chess", "Writing", "Soccer", "Basketball", "Tennis", "Golf", "Volunteering", "Meditation", "Sculpting", "Baking", "Skiing", "Surfing", "Puzzle solving", "Calligraphy", "Camping", "Archery", "Pottery", "Rock climbing", "Woodworking", "Skydiving", "Scuba diving", "Motorcycling", "Model building", "Astronomy", "Whale watching", "Kayaking", "Beekeeping", "Horseback riding", "Geocaching"]}/>
                           <SelectField name="diet" label="Eating Haits" options={['Prefer Not to Say', 'Vegetarian', 'Non Vegetarian', 'Eggetarian' ]} />
                           <SelectField name="smoking" label="Smoking" options={['Prefer Not to Say', 'Yes', 'No', 'Ocassionally' ]} />
                           <SelectField name="drinking" label="Drinking" options={['Prefer Not to Say', 'Yes', 'No', 'Drinks Socially' ]} />
@@ -207,7 +221,7 @@ function ProfileUpdation() {
                       </Disclosure.Button>
                       <Disclosure.Panel className="p-4 grid grid-cols-1">
                           <TextArea name="about" label="About Me" rows={5} />
-                          <FileInput name="photoUrl" label="Profile Picture" defaultValue={user.gender === 'Male' ? '/images/maleAvatar.png' : '/images/femaleAvatar.png'} previewSize={'w-60 h-60'}/>          
+                          <FileInput name="photoUrl" label="Profile Picture" defaultValue={user.photoUrl ? user.photoUrl : ( user.gender === 'Male' ? '/images/maleAvatar.png' : '/images/femaleAvatar.png')} previewSize={'w-60 h-60'}/>          
                       </Disclosure.Panel>
                 </Disclosure>
                 

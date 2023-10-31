@@ -14,6 +14,7 @@ export async function sendPostRequest(endpoint, data) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Content-Length': JSON.stringify(data).length.toString(), 
       },
       body: JSON.stringify(data),
     });
@@ -32,6 +33,13 @@ export async function sendPostRequest(endpoint, data) {
 }
 
 export async function sendPostFormBodyRequest(endpoint, data) {
+  if (!endpoint || !data) {
+    return {
+      success: false,
+      error: 'Invalid request parameters. Both endpoint and data are required.',
+    };
+  }
+
   const formData = new FormData();
   for (const formDataKey in data ) {
     const valuesKey = data[formDataKey];

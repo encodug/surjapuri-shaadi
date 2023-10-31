@@ -13,6 +13,7 @@ function BlurredImage({src, ...props}) {
         const context = canvas.getContext('2d');
         canvas.width = image.width;
         canvas.height = image.height;
+        context.webkitFilter = 'blur(60px)';
         context.filter = 'blur(60px)'; // Adjust the blur amount as needed
         context.drawImage(image, 0, 0, image.width, image.height);
 

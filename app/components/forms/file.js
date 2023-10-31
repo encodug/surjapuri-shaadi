@@ -29,7 +29,7 @@ function FileInput({name, label, defaultValue, className, darkMode = false, prev
 
     const removeFile = () => {
         setSelectedFile(null);
-        setFieldValue(name, '');
+        setFieldValue(name, defaultValue);
     }
 
   return (
