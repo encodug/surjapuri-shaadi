@@ -26,7 +26,7 @@ function ContactUs() {
                 <li>
                     <span className='text-red-600 font-bold'>Mailing Address:</span>
                     <br/>
-                    <p>Surjapurishaadi.com, Teenpool Chowk, Islampur, Dist: Uttar Dinajpur, West Bengal: 733202</p>
+                    <p>Siposip Technologies Private Limited, Teenpool Chowk, Islampur, Dist: Uttar Dinajpur, West Bengal: 733202</p>
                 </li>
             </ol>
         </div>
