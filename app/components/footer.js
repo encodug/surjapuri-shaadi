@@ -31,7 +31,7 @@ function Footer() {
             </div>
             <div className='border-t flex sm:flex-row flex-col pt-4 items-center justify-between'>
                     <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-1-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-                        © 2024 Siposis Technologies Private Limited
+                        © 2024 Siposip Technologies Private Limited
                     </p>
                     <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-1-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">This website is strictly for matrimonial purpose only and not a dating website. </p>
                     <span className="inline-flex sm:mt-0 mt-4 justify-center sm:justify-start">

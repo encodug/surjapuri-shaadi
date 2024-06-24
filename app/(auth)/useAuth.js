@@ -74,7 +74,12 @@ export const AuthContextProvider = ({children}) => {
 
     return (
         <AuthContext.Provider value={{...state, dispatch}}>
-            {loading ? 'loading...'  : children}
+            {loading ? 
+            <div class="relative min-h-screen">
+              <div className="absolute top-1/2 left-1/2">
+                <span class="loader"></span>
+              </div>
+            </div> : children}
         </AuthContext.Provider>
     );
 }

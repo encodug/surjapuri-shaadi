@@ -82,7 +82,7 @@ function QuickSearch() {
         </div>
       </section>
       <section className="container mx-auto p-6 md:py-12">
-        {loading ? 'Loading....' : (
+        {loading ? 'Search Page Loading....' : (
           <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
             <Profiles profiles={quickSearchData}/>
             <LoadMore searchCriteria={{gender: (user.gender === 'Male') ? 'Female' : 'Male', ...searchCriteria}}/>

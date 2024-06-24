@@ -22,7 +22,7 @@ const withAuth = (WrappedComponent) => {
       // You can also render a loading indicator here
       return (
         <section className='mx-auto container p-6 lg:px-8'>
-          Loading..
+          withAuth Loading...
         </section>
       )
     }
